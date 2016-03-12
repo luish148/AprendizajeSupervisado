@@ -4,12 +4,14 @@
 install = function(pkg){
   # Si ya está instalado, no lo instala.
   if (!require(pkg, character.only = TRUE)) {
-    install.packages(pkg, repos = "http:/cran.rstudio.com")
+    install.packages(pkg, repos = "http://cran.rstudio.com")
     if (!require(pkg, character.only = TRUE)) stop(paste("load failure:", pkg))
   }
 }
 
 install("jsonlite")
+#install.packages("jsonlite",repos="http://cran.r-project.org")
+
 
 fetch_data = function(preamble, list){
   data = preamble
@@ -37,11 +39,17 @@ get_url = function(origins, destinations, key, mode = "driving", language = "es"
   return(api_url)
 }
 
+library(jsonlite)
+#library(httr)
+
 get_data = function(api_url){
   return(fromJSON(api_url))
 }
 
 # To Complete
 parse_data = function(json){
-  
+  return(json$rows$elements)
 }
+
+
+
